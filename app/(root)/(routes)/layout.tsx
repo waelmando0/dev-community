@@ -6,13 +6,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<>
 			<SiteHeader />
-			<main>
-				<div className='flex justify-between space-x-4'>
+			<main className='relative'>
+				<div className='flex'>
 					<LeftSidebar />
-					<section className='flex flex-col flex-1 min-h-screen px-6 pb-6 pt-14 max-md:pb-14 sm:px-14 '>
+					<section className='flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14'>
 						{children}
 					</section>
-					<div className='px-6 pb-6 pt-14 max-md:pb-14 sm:px-14 '>
+					<div className='px-6 pb-6 pt-36 max-md:pb-14 sm:px-14 '>
 						RightSidebar
 					</div>
 				</div>

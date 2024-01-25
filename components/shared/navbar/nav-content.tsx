@@ -3,16 +3,16 @@ import React from 'react';
 
 import Link from 'next/link';
 import { SheetClose } from '../../ui/sheet';
-import { Home, User2Icon } from 'lucide-react';
+import {
+	Home,
+	Star,
+	Tag,
+	User2Icon,
+	Briefcase,
+	MessageCircleQuestion,
+} from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-
-interface SidebarLink {
-	route: string;
-	label: string;
-	icon: React.ReactNode;
-	active: React.ReactNode;
-}
 
 const NavContent = () => {
 	const pathname = usePathname();
@@ -29,6 +29,30 @@ const NavContent = () => {
 			label: 'Community',
 			icon: <User2Icon />,
 			active: pathname === `/community`,
+		},
+		{
+			route: `/collections`,
+			label: 'Collections',
+			icon: <Star />,
+			active: pathname === `/collections`,
+		},
+		{
+			route: `/job`,
+			label: 'Find Job',
+			icon: <Briefcase />,
+			active: pathname === `/job`,
+		},
+		{
+			route: `/tags`,
+			label: 'Tags',
+			icon: <Tag />,
+			active: pathname === `/tags`,
+		},
+		{
+			route: `/support`,
+			label: 'Ask a question',
+			icon: <MessageCircleQuestion />,
+			active: pathname === `/support`,
 		},
 	];
 

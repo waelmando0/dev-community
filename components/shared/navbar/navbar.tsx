@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const Navbar = () => {
 	return (
-		<nav className='flex items-center justify-between h-28 '>
+		<nav className='flex items-center justify-between'>
 			<Link href='/'>
 				<h1>Next Master</h1>
 			</Link>
