@@ -80,16 +80,16 @@ const LeftSidebar = () => {
 
 			<div className='flex flex-col gap-4'>
 				<Link href='/sign-in'>
-					<button className='w-full p-4 inline-flex items-center justify-center rounded-xl bg-slate-200 hover:bg-slate-200/80 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-white text-sm font-semibold border-b'>
+					<Button className='w-full text-black bg-slate-200 hover:bg-slate-200/80 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-white'>
 						<span className='max-lg:hidden'>Log In</span>
 						<UserCircle className='lg:hidden' />
-					</button>
+					</Button>
 				</Link>
 				<Link href='/sign-up'>
-					<button className='w-full p-4 inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-zinc-600 dark:text-white text-sm font-semibold border-b'>
+					<Button className='w-full'>
 						<span className='max-lg:hidden'>Sign Up</span>
 						<UserPlus className='lg:hidden' />
-					</button>
+					</Button>
 				</Link>
 			</div>
 		</section>
