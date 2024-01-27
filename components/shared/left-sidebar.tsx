@@ -59,8 +59,8 @@ const LeftSidebar = () => {
 	];
 
 	return (
-		<section className='flex flex-col h-screen sticky top-0 left-0 justify-between overflow-y-auto border-r p-6 pt-36 shadow-sm shadow-zinc-300 dark:shadow-none max-sm:hidden lg:w-[266px] bg-white dark:bg-zinc-900 custom-scroll'>
-			<div className='flex flex-1 flex-col gap-4 items-center lg:items-start'>
+		<section className='flex flex-col h-screen sticky top-0 left-0 justify-between overflow-y-auto border-r p-6 pt-36 shadow-sm  dark:shadow-none max-sm:hidden lg:w-[266px] bg-white dark:bg-zinc-900 custom-scrollbar space-y-8'>
+			<div className='flex flex-1 flex-col gap-6'>
 				{sidebarLinks.map((item) => (
 					<Link
 						key={item.route}
@@ -78,15 +78,15 @@ const LeftSidebar = () => {
 				))}
 			</div>
 
-			<div className='flex flex-col gap-3'>
+			<div className='flex flex-col gap-6'>
 				<Link href='/sign-in'>
-					<button className='w-full p-4 inline-flex items-center justify-center h-10 rounded-xl bg-secondary hover:bg-secondary/90 dark:bg-accent dark:text-white text-sm'>
+					<button className='w-full p-4 inline-flex items-center justify-center rounded-xl bg-secondary hover:bg-secondary/90 dark:bg-accent dark:text-white text-sm font-semibold border-b'>
 						<span className='max-lg:hidden'>Log In</span>
 						<UserCircle className='lg:hidden' />
 					</button>
 				</Link>
 				<Link href='/sign-up'>
-					<button className='w-full p-4 inline-flex items-center justify-center h-10 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-zinc-600 dark:text-white text-sm'>
+					<button className='w-full p-4 inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-zinc-600 dark:text-white text-sm font-semibold border-b'>
 						<span className='max-lg:hidden'>Sign Up</span>
 						<UserPlus className='lg:hidden' />
 					</button>

@@ -14,14 +14,6 @@ const Navbar = () => {
 			<GlobalSearch />
 			<div className='flex items-center space-x-4'>
 				<ThemeToggle />
-				<UserButton
-					afterSignOutUrl='/'
-					appearance={{
-						elements: {
-							avatarBox: 'h-10 w-10',
-						},
-					}}
-				/>
 				<div className='flex items-center sm:hidden'>
 					<MobileNav />
 				</div>
