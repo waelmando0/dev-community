@@ -21,37 +21,37 @@ const NavContent = () => {
 		{
 			route: `/`,
 			label: 'Home',
-			icon: <Home />,
+			icon: <Home className='w-5 h-5' />,
 			active: pathname === `/`,
 		},
 		{
 			route: `/community`,
 			label: 'Community',
-			icon: <User2Icon />,
+			icon: <User2Icon className='w-5 h-5' />,
 			active: pathname === `/community`,
 		},
 		{
 			route: `/collections`,
 			label: 'Collections',
-			icon: <Star />,
+			icon: <Star className='w-5 h-5' />,
 			active: pathname === `/collections`,
 		},
 		{
 			route: `/job`,
 			label: 'Find Job',
-			icon: <Briefcase />,
+			icon: <Briefcase className='w-5 h-5' />,
 			active: pathname === `/job`,
 		},
 		{
 			route: `/tags`,
 			label: 'Tags',
-			icon: <Tag />,
+			icon: <Tag className='w-5 h-5' />,
 			active: pathname === `/tags`,
 		},
 		{
 			route: `/support`,
 			label: 'Ask a question',
-			icon: <MessageCircleQuestion />,
+			icon: <MessageCircleQuestion className='w-5 h-5' />,
 			active: pathname === `/support`,
 		},
 	];
@@ -63,7 +63,7 @@ const NavContent = () => {
 					<Link
 						href={item.route}
 						className={cn(
-							'text-sm font-medium transition-colors hover:text-black flex items-center space-x-6 p-2',
+							'text-base font-medium transition-colors hover:text-black flex items-center space-x-6 p-2',
 							item.active
 								? 'text-black dark:text-white'
 								: 'text-neutral-500 dark:hover:text-white'

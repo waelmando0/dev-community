@@ -12,7 +12,7 @@ interface RenderTagProps {
 const RenderTag = ({ id, name, totalQuestions, showCount }: RenderTagProps) => {
 	return (
 		<Link href={`/tags/${id}`} className='flex justify-between gap-2'>
-			<Badge variant='secondary' className='rounded-md py-1'>
+			<Badge variant='secondary' className='rounded-md py-0.5'>
 				{name}
 			</Badge>
 			{showCount && <p className='text-sm'>{totalQuestions}</p>}

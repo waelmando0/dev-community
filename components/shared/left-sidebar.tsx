@@ -80,7 +80,7 @@ const LeftSidebar = () => {
 
 			<div className='flex flex-col gap-4'>
 				<Link href='/sign-in'>
-					<Button className='w-full text-black bg-slate-200 hover:bg-slate-200/80 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-white'>
+					<Button className='w-full text-black bg-slate-200/70 hover:bg-slate-200/90 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-white'>
 						<span className='max-lg:hidden'>Log In</span>
 						<UserCircle className='lg:hidden' />
 					</Button>

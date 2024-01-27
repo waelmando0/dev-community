@@ -77,7 +77,7 @@ const RightSidebar = () => {
 					))}
 				</div>
 			</div>
-			<div className='pt-16'>
+			<div className='pt-8'>
 				<h3 className='text-xl font-bold'>Popular Tags</h3>
 				<div className='flex flex-col gap-4 mt-7'>
 					{popularTags.map((tag) => (
