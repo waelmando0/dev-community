@@ -23,37 +23,37 @@ const LeftSidebar = () => {
 		{
 			route: `/`,
 			label: 'Home',
-			icon: <Home />,
+			icon: <Home className='w-5 h-5' />,
 			active: pathname === `/`,
 		},
 		{
 			route: `/community`,
 			label: 'Community',
-			icon: <User2Icon />,
+			icon: <User2Icon className='w-5 h-5' />,
 			active: pathname === `/community`,
 		},
 		{
 			route: `/collections`,
 			label: 'Collections',
-			icon: <Star />,
+			icon: <Star className='w-5 h-5' />,
 			active: pathname === `/collections`,
 		},
 		{
 			route: `/job`,
 			label: 'Find Job',
-			icon: <Briefcase />,
+			icon: <Briefcase className='w-5 h-5' />,
 			active: pathname === `/job`,
 		},
 		{
 			route: `/tags`,
 			label: 'Tags',
-			icon: <Tag />,
+			icon: <Tag className='w-5 h-5' />,
 			active: pathname === `/tags`,
 		},
 		{
 			route: `/support`,
 			label: 'Ask a question',
-			icon: <MessageCircleQuestion />,
+			icon: <MessageCircleQuestion className='w-5 h-5' />,
 			active: pathname === `/support`,
 		},
 	];
@@ -66,7 +66,7 @@ const LeftSidebar = () => {
 						key={item.route}
 						href={item.route}
 						className={cn(
-							'text-sm font-medium transition-colors hover:text-black flex items-center space-x-4 p-4',
+							'text-base font-medium transition-colors hover:text-black flex items-center space-x-4 p-4',
 							item.active
 								? 'text-black dark:text-white'
 								: 'text-neutral-500 dark:hover:text-white'
@@ -78,9 +78,9 @@ const LeftSidebar = () => {
 				))}
 			</div>
 
-			<div className='flex flex-col gap-6'>
+			<div className='flex flex-col gap-4'>
 				<Link href='/sign-in'>
-					<button className='w-full p-4 inline-flex items-center justify-center rounded-xl bg-secondary hover:bg-secondary/90 dark:bg-accent dark:text-white text-sm font-semibold border-b'>
+					<button className='w-full p-4 inline-flex items-center justify-center rounded-xl bg-slate-200 hover:bg-slate-200/80 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-white text-sm font-semibold border-b'>
 						<span className='max-lg:hidden'>Log In</span>
 						<UserCircle className='lg:hidden' />
 					</button>

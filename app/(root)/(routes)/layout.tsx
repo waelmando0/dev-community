@@ -1,6 +1,6 @@
 import SiteHeader from '@/components/shared/header';
 import LeftSidebar from '@/components/shared/left-sidebar';
-import RightSidebar from '@/components/shared/righ-sidebar';
+import RightSidebar from '@/components/shared/right-sidebar';
 import React from 'react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
