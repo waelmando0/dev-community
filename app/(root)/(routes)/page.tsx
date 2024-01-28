@@ -14,16 +14,10 @@ const Home = () => {
 					<Button size='lg'>Ask a Question</Button>
 				</Link>
 			</div>
-			<div className='mt-12 flex justify-between gap-5 max-sm:flex-col sm:items-center'>
-				<LocalSearchBar
-					route='/'
-					iconPosition='left'
-					placeholder='Search for questions'
-					otherClasses='flex-1'
-				/>
+			<div className='mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center'>
+				<LocalSearchBar route='/' placeholder='Search for questions' />
 				<Filter
 					filters={HomePageFilters}
-					otherClasses='min-h-[56px] sm:min-w-[170px]'
 					containerClasses='hidden max-md:flex'
 				/>
 			</div>

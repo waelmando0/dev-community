@@ -5,13 +5,11 @@ import React from 'react';
 const GlobalSearch = () => {
 	return (
 		<div className='relative w-full max-w-[600px] max-lg:hidden'>
-			<div className='bg-slate-200/70 dark:bg-accent relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4'>
-				<Search className='w-6 h-6 text-slate-600' />
-				<Input
-					placeholder='Search anything globally...'
-					className='border-none bg-transparent'
-				/>
-			</div>
+			<Search className='absolute left-5 top-4 h-6 w-6 text-slate-600' />
+			<Input
+				placeholder='Search anything globally...'
+				className='flex w-full bg-slate-200/70 rounded-lg border  px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-14'
+			/>
 		</div>
 	);
 };
