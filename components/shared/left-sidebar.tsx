@@ -15,6 +15,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { SignedOut } from '@clerk/nextjs';
 
 const LeftSidebar = () => {
 	const pathname = usePathname();
@@ -78,20 +79,22 @@ const LeftSidebar = () => {
 				))}
 			</div>
 
-			<div className='flex flex-col gap-4'>
-				<Link href='/sign-in'>
-					<Button className='w-full text-black bg-slate-200/70 hover:bg-slate-200/90 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-white'>
-						<span className='max-lg:hidden'>Log In</span>
-						<UserCircle className='lg:hidden' />
-					</Button>
-				</Link>
-				<Link href='/sign-up'>
-					<Button className='w-full'>
-						<span className='max-lg:hidden'>Sign Up</span>
-						<UserPlus className='lg:hidden' />
-					</Button>
-				</Link>
-			</div>
+			<SignedOut>
+				<div className='flex flex-col gap-4'>
+					<Link href='/sign-in'>
+						<Button className='w-full text-black bg-slate-200/70 hover:bg-slate-200/90 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-white'>
+							<span className='max-lg:hidden'>Log In</span>
+							<UserCircle className='lg:hidden' />
+						</Button>
+					</Link>
+					<Link href='/sign-up'>
+						<Button className='w-full'>
+							<span className='max-lg:hidden'>Sign Up</span>
+							<UserPlus className='lg:hidden' />
+						</Button>
+					</Link>
+				</div>
+			</SignedOut>
 		</section>
 	);
 };

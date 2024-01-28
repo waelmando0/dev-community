@@ -27,13 +27,13 @@ const MobileNav = () => {
 				<Link href='/' className='text-bold text-2xl'>
 					Logo
 				</Link>
-				<div>
+				<div className='flex flex-col h-[90vh]'>
 					<SheetClose asChild>
 						<NavContent />
 					</SheetClose>
 
 					<SignedOut>
-						<div className='flex flex-col gap-3'>
+						<div className='flex flex-col gap-4'>
 							<SheetClose asChild>
 								<Link href='/sign-in'>
 									<Button className='w-full'>

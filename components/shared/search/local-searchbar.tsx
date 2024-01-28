@@ -32,7 +32,7 @@ const LocalSearchBar = ({
 				type='text'
 				placeholder={placeholder}
 				onChange={() => {}}
-				className='flex h-9 w-full bg-transparent text-sm border-none '
+				className='flex h-9 w-full text-sm border-none bg-transparent shadow-none outline-none paragraph-regular no-focus placeholder'
 			/>
 			{iconPosition === 'right' && (
 				<Search className='text-slate-600 cursor-pointer' />

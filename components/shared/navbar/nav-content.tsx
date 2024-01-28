@@ -57,7 +57,7 @@ const NavContent = () => {
 	];
 
 	return (
-		<section className='flex flex-col gap-6 pt-16 h-full'>
+		<div className='flex flex-1 flex-col gap-6 pt-16'>
 			{sidebarLinks.map((item) => (
 				<SheetClose asChild key={item.route}>
 					<Link
@@ -74,7 +74,7 @@ const NavContent = () => {
 					</Link>
 				</SheetClose>
 			))}
-		</section>
+		</div>
 	);
 };
 
