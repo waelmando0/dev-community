@@ -2,6 +2,7 @@ import Filter from '@/components/shared/filter';
 import LocalSearchBar from '@/components/shared/search/local-searchbar';
 import { Button } from '@/components/ui/button';
 import { HomePageFilters } from '@/constants/filter';
+import HomeFilters from '@/components/home/home-filters';
 import Link from 'next/link';
 import React from 'react';
 
@@ -21,6 +22,7 @@ const Home = () => {
 					containerClasses='hidden max-md:flex'
 				/>
 			</div>
+			<HomeFilters />
 		</>
 	);
 };
