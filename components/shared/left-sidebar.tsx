@@ -52,10 +52,10 @@ const LeftSidebar = () => {
 			active: pathname === `/tags`,
 		},
 		{
-			route: `/support`,
+			route: `/ask-question`,
 			label: 'Ask a question',
 			icon: <MessageCircleQuestion className='w-5 h-5' />,
-			active: pathname === `/support`,
+			active: pathname === `/ask-question`,
 		},
 	];
 
