@@ -17,6 +17,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '../ui/button';
 import { QuestionsSchema } from '@/lib/validation';
+import { Badge } from '../ui/badge';
+import { X } from 'lucide-react';
 
 const Question = () => {
 	const editorRef = useRef(null);
@@ -38,6 +40,40 @@ const Question = () => {
 	function onSubmit(values: z.infer<typeof QuestionsSchema>) {
 		console.log(values);
 	}
+
+	const handleInputKeyDown = (
+		e: React.KeyboardEvent<HTMLInputElement>,
+		field: any
+	) => {
+		if (e.key === 'Enter' && field.name === 'tags') {
+			e.preventDefault();
+
+			const tagInput = e.target as HTMLInputElement;
+			const tagValue = tagInput.value.trim();
+
+			if (tagValue !== '') {
+				if (tagValue.length > 15) {
+					return form.setError('tags', {
+						type: 'required',
+						message: 'Tag must be less than 15 characters.',
+					});
+				}
+			}
+
+			if (!field.value.includes(tagValue as never)) {
+				form.setValue('tags', [...field.value, tagValue]);
+				tagInput.value = '';
+				form.clearErrors('tags');
+			} else {
+				form.trigger();
+			}
+		}
+	};
+
+	const handleTagRemove = (tag: string, field: any) => {
+		const newTags = field.value.filter((t: string) => t !== tag);
+		form.setValue('tags', newTags);
+	};
 
 	return (
 		<Form {...form}>
@@ -123,11 +159,27 @@ const Question = () => {
 						<FormItem>
 							<FormLabel className='font-semibold'>Tags</FormLabel>
 							<FormControl>
-								<Input
-									className='flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
-									placeholder='Add tags...'
-									{...field}
-								/>
+								<>
+									<Input
+										className='flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
+										placeholder='Add tags...'
+										onKeyDown={(e) => handleInputKeyDown(e, field)}
+									/>
+									{field.value.length > 0 && (
+										<div className='flex-start space-x-4 pt-2 cursor-pointer'>
+											{field.value.map((tag: any) => (
+												<Badge
+													key={tag}
+													className='py-2 px-4 gap-2 capitalize'
+													onClick={() => handleTagRemove(tag, field)}
+												>
+													{tag}
+													<X className='w-4 h-4' />
+												</Badge>
+											))}
+										</div>
+									)}
+								</>
 							</FormControl>
 							<FormDescription>
 								Add up to 3 tags to describe what your question is about. You
