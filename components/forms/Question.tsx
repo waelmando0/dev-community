@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -17,6 +19,13 @@ import { Button } from '../ui/button';
 import { QuestionsSchema } from '@/lib/validation';
 
 const Question = () => {
+	const editorRef = useRef(null);
+	const log = () => {
+		if (editorRef.current) {
+			console.log(editorRef.current.getContent());
+		}
+	};
+
 	const form = useForm<z.infer<typeof QuestionsSchema>>({
 		resolver: zodResolver(QuestionsSchema),
 		defaultValues: {
@@ -41,7 +50,7 @@ const Question = () => {
 							<FormLabel className='font-semibold'>Question Title</FormLabel>
 							<FormControl>
 								<Input
-									className='flex w-full bg-slate-200/70 dark:bg-zinc-500/50 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
+									className='flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
 									{...field}
 								/>
 							</FormControl>
@@ -61,7 +70,44 @@ const Question = () => {
 							<FormLabel className='font-semibold'>
 								Detailed explanation of your problem
 							</FormLabel>
-							<FormControl></FormControl>
+							<FormControl>
+								{/* Editor add an Editor component */}
+								<Editor
+									apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+									onInit={(evt, editor) => {
+										// @ts-ignore
+										editorRef.current = editor;
+									}}
+									initialValue=''
+									init={{
+										height: 350,
+										menubar: false,
+										plugins: [
+											'advlist',
+											'autolink',
+											'lists',
+											'link',
+											'image',
+											'charmap',
+											'preview',
+											'anchor',
+											'searchreplace',
+											'visualblocks',
+											'codesample',
+											'fullscreen',
+											'insertdatetime',
+											'media',
+											'tablet',
+										],
+										toolbar:
+											'undo redo | ' +
+											'codesample | bold italic forecolor | alignleft aligncenter ' +
+											'alignright alignjustify | bullist numlist',
+										content_style:
+											'body { font-family:Helvetica,Arial,sans-serif; font-size:16px}',
+									}}
+								/>
+							</FormControl>
 							<FormDescription>
 								Introduce the problem and expand on what you put in the title.
 								Minimum 20 characters.
@@ -78,7 +124,7 @@ const Question = () => {
 							<FormLabel className='font-semibold'>Tags</FormLabel>
 							<FormControl>
 								<Input
-									className='flex w-full bg-slate-200/70 dark:bg-zinc-500/50 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
+									className='flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
 									placeholder='Add tags...'
 									{...field}
 								/>
