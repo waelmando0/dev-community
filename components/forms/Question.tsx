@@ -83,7 +83,9 @@ const Question = () => {
 					name='title'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className='font-semibold'>Question Title</FormLabel>
+							<FormLabel className='font-semibold text-xl'>
+								Question Title
+							</FormLabel>
 							<FormControl>
 								<Input
 									className='flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
@@ -103,7 +105,7 @@ const Question = () => {
 					name='explanation'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className='font-semibold'>
+							<FormLabel className='font-semibold text-xl'>
 								Detailed explanation of your problem
 							</FormLabel>
 							<FormControl>
@@ -157,7 +159,7 @@ const Question = () => {
 					name='tags'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className='font-semibold'>Tags</FormLabel>
+							<FormLabel className='font-semibold text-xl'>Tags</FormLabel>
 							<FormControl>
 								<>
 									<Input
@@ -166,11 +168,11 @@ const Question = () => {
 										onKeyDown={(e) => handleInputKeyDown(e, field)}
 									/>
 									{field.value.length > 0 && (
-										<div className='flex-start space-x-4 pt-2 cursor-pointer'>
+										<div className='flex flex-wrap gap-4  pt-2 cursor-pointer'>
 											{field.value.map((tag: any) => (
 												<Badge
 													key={tag}
-													className='py-2 px-4 gap-2 capitalize'
+													className='py-2 px-4  capitalize'
 													onClick={() => handleTagRemove(tag, field)}
 												>
 													{tag}
