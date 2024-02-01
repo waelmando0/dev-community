@@ -55,7 +55,6 @@ const Question = ({
 	async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
 		try {
 			setIsSubmitting(true);
-
 			await createQuestion({});
 		} catch (error) {
 		} finally {
