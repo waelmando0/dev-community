@@ -20,42 +20,54 @@ import { QuestionsSchema } from "@/lib/validation";
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
 import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
+import { title } from "process";
 
 interface QuestionProps {
 	mongoUserId: string;
-	type: string;
-	questionId?: string;
-	title?: string;
-	content?: string;
-	tags?: string[];
+	// type: string;
+	// questionId?: string;
+	// title?: string;
+	// content?: string;
+	// tags?: string[];
 }
 
 const type: any = "create";
 
 const Question = ({
 	mongoUserId,
-	type,
-	questionId,
-	title,
-	content,
-	tags,
+	// type,
+	// questionId,
+	// title,
+	// content,
+	// tags,
 }: QuestionProps) => {
 	const editorRef = useRef(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const router = useRouter();
+	const pathname = usePathname();
 
 	const form = useForm<z.infer<typeof QuestionsSchema>>({
 		resolver: zodResolver(QuestionsSchema),
 		defaultValues: {
-			title: title || "",
-			explanation: content || "",
-			tags: tags && tags.length > 0 ? tags : [],
+			title: "",
+			explanation: "",
+			tags: [],
 		},
 	});
 
 	async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
 		try {
 			setIsSubmitting(true);
-			await createQuestion({});
+			await createQuestion({
+				title: values.title,
+				content: values.explanation,
+				tags: values.tags,
+				author: JSON.parse(mongoUserId),
+			});
+
+			// navigate to home page
+			router.push("/");
 		} catch (error) {
 		} finally {
 			setIsSubmitting(false);
@@ -132,15 +144,16 @@ const Question = ({
 								{/* Editor add an Editor component */}
 								<Editor
 									apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
-									onInit={(evt, editor) => {
+									onInit={(evt, editor) =>
 										// @ts-ignore
-										editorRef.current = editor;
-									}}
+										(editorRef.current = editor)
+									}
+									id="tiny-editor"
 									onBlur={field.onBlur}
 									onEditorChange={(content) => field.onChange(content)}
 									initialValue=""
 									init={{
-										height: 350,
+										height: 500,
 										menubar: false,
 										plugins: [
 											"advlist",
@@ -153,18 +166,24 @@ const Question = ({
 											"anchor",
 											"searchreplace",
 											"visualblocks",
-											"codesample",
+											"code",
 											"fullscreen",
 											"insertdatetime",
 											"media",
-											"tablet",
+											"table",
+											"code",
+											"help",
+											"wordcount",
 										],
 										toolbar:
-											"undo redo | " +
-											"codesample | bold italic forecolor | alignleft aligncenter " +
-											"alignright alignjustify | bullist numlist",
+											"undo redo | blocks | " +
+											"codesample |bold italic forecolor | alignleft aligncenter " +
+											"alignright alignjustify | bullist numlist | " +
+											"removeformat | help",
 										content_style:
-											"body { font-family:Helvetica,Arial,sans-serif; font-size:16px}",
+											"body { font-family:Inetr,Arial,sans-serif; font-size:16px }",
+										// skin: mode === "dark" ? "oxide-dark" : "oxide",
+										// content_css: mode === "dark" ? "dark" : "light",
 									}}
 								/>
 							</FormControl>
