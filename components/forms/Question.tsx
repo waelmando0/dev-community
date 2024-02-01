@@ -19,6 +19,7 @@ import { Button } from "../ui/button";
 import { QuestionsSchema } from "@/lib/validation";
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
+import { createQuestion } from "@/lib/actions/question.action";
 
 interface QuestionProps {
 	mongoUserId: string;
@@ -54,9 +55,8 @@ const Question = ({
 	async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
 		try {
 			setIsSubmitting(true);
-			// make an async call to your API -> create a question
-			// contain all from data
-			// navigation to home page
+
+			await createQuestion({});
 		} catch (error) {
 		} finally {
 			setIsSubmitting(false);
@@ -137,6 +137,8 @@ const Question = ({
 										// @ts-ignore
 										editorRef.current = editor;
 									}}
+									onBlur={field.onBlur}
+									onEditorChange={(content) => field.onChange(content)}
 									initialValue=""
 									init={{
 										height: 350,
