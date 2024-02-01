@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useRef } from 'react';
-import { Editor } from '@tinymce/tinymce-react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import React, { useRef, useState } from "react";
+import { Editor } from "@tinymce/tinymce-react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import {
 	Form,
 	FormControl,
@@ -13,82 +13,103 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '../ui/button';
-import { QuestionsSchema } from '@/lib/validation';
-import { Badge } from '../ui/badge';
-import { X } from 'lucide-react';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "../ui/button";
+import { QuestionsSchema } from "@/lib/validation";
+import { Badge } from "../ui/badge";
+import { X } from "lucide-react";
 
-const Question = () => {
+interface QuestionProps {
+	mongoUserId: string;
+	type: string;
+	questionId?: string;
+	title?: string;
+	content?: string;
+	tags?: string[];
+}
+
+const type: any = "create";
+
+const Question = ({
+	mongoUserId,
+	type,
+	questionId,
+	title,
+	content,
+	tags,
+}: QuestionProps) => {
 	const editorRef = useRef(null);
-	const log = () => {
-		if (editorRef.current) {
-			console.log(editorRef.current.getContent());
-		}
-	};
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const form = useForm<z.infer<typeof QuestionsSchema>>({
 		resolver: zodResolver(QuestionsSchema),
 		defaultValues: {
-			title: '',
-			explanation: '',
-			tags: [],
+			title: title || "",
+			explanation: content || "",
+			tags: tags && tags.length > 0 ? tags : [],
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof QuestionsSchema>) {
-		console.log(values);
+	async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+		try {
+			setIsSubmitting(true);
+			// make an async call to your API -> create a question
+			// contain all from data
+			// navigation to home page
+		} catch (error) {
+		} finally {
+			setIsSubmitting(false);
+		}
 	}
 
 	const handleInputKeyDown = (
-		e: React.KeyboardEvent<HTMLInputElement>,
+		event: React.KeyboardEvent<HTMLInputElement>,
 		field: any
 	) => {
-		if (e.key === 'Enter' && field.name === 'tags') {
-			e.preventDefault();
-
-			const tagInput = e.target as HTMLInputElement;
+		if (event.key === "Enter" && field.name === "tags") {
+			event.preventDefault();
+			const tagInput = event.target as HTMLInputElement;
 			const tagValue = tagInput.value.trim();
 
-			if (tagValue !== '') {
+			if (tagValue !== "") {
 				if (tagValue.length > 15) {
-					return form.setError('tags', {
-						type: 'required',
-						message: 'Tag must be less than 15 characters.',
+					return form.setError("tags", {
+						type: "required",
+						message: "Tag must be less than 15 characters.",
 					});
 				}
-			}
 
-			if (!field.value.includes(tagValue as never)) {
-				form.setValue('tags', [...field.value, tagValue]);
-				tagInput.value = '';
-				form.clearErrors('tags');
-			} else {
-				form.trigger();
+				if (!field.value.includes(tagValue as never)) {
+					form.setValue("tags", [...field.value, tagValue]);
+					tagInput.value = "";
+					form.clearErrors("tags");
+				} else {
+					form.trigger();
+				}
 			}
 		}
 	};
 
 	const handleTagRemove = (tag: string, field: any) => {
 		const newTags = field.value.filter((t: string) => t !== tag);
-		form.setValue('tags', newTags);
+		form.setValue("tags", newTags);
 	};
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 				<FormField
 					control={form.control}
-					name='title'
+					name="title"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className='font-semibold text-xl'>
+							<FormLabel className="font-semibold sm:text-xl">
 								Question Title
 							</FormLabel>
 							<FormControl>
 								<Input
-									className='flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
+									className="flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 "
 									{...field}
 								/>
 							</FormControl>
@@ -102,10 +123,10 @@ const Question = () => {
 				/>
 				<FormField
 					control={form.control}
-					name='explanation'
+					name="explanation"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className='font-semibold text-xl'>
+							<FormLabel className="font-semibold sm:text-xl">
 								Detailed explanation of your problem
 							</FormLabel>
 							<FormControl>
@@ -116,33 +137,33 @@ const Question = () => {
 										// @ts-ignore
 										editorRef.current = editor;
 									}}
-									initialValue=''
+									initialValue=""
 									init={{
 										height: 350,
 										menubar: false,
 										plugins: [
-											'advlist',
-											'autolink',
-											'lists',
-											'link',
-											'image',
-											'charmap',
-											'preview',
-											'anchor',
-											'searchreplace',
-											'visualblocks',
-											'codesample',
-											'fullscreen',
-											'insertdatetime',
-											'media',
-											'tablet',
+											"advlist",
+											"autolink",
+											"lists",
+											"link",
+											"image",
+											"charmap",
+											"preview",
+											"anchor",
+											"searchreplace",
+											"visualblocks",
+											"codesample",
+											"fullscreen",
+											"insertdatetime",
+											"media",
+											"tablet",
 										],
 										toolbar:
-											'undo redo | ' +
-											'codesample | bold italic forecolor | alignleft aligncenter ' +
-											'alignright alignjustify | bullist numlist',
+											"undo redo | " +
+											"codesample | bold italic forecolor | alignleft aligncenter " +
+											"alignright alignjustify | bullist numlist",
 										content_style:
-											'body { font-family:Helvetica,Arial,sans-serif; font-size:16px}',
+											"body { font-family:Helvetica,Arial,sans-serif; font-size:16px}",
 									}}
 								/>
 							</FormControl>
@@ -156,27 +177,27 @@ const Question = () => {
 				/>
 				<FormField
 					control={form.control}
-					name='tags'
+					name="tags"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className='font-semibold text-xl'>Tags</FormLabel>
+							<FormLabel className="font-semibold sm:text-xl">Tags</FormLabel>
 							<FormControl>
 								<>
 									<Input
-										className='flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 '
-										placeholder='Add tags...'
+										className="flex w-full bg-slate-200/70 dark:bg-zinc-900 dark:placeholder:text-white rounded-lg border px-3 h-14 shadow-sm transition-colors  placeholder:text-black focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 "
+										placeholder="Add tags..."
 										onKeyDown={(e) => handleInputKeyDown(e, field)}
 									/>
 									{field.value.length > 0 && (
-										<div className='flex flex-wrap gap-4  pt-2 cursor-pointer'>
+										<div className="flex flex-wrap gap-4  pt-2 cursor-pointer">
 											{field.value.map((tag: any) => (
 												<Badge
 													key={tag}
-													className='py-2 px-4  capitalize'
+													className="py-2 px-4 capitalize "
 													onClick={() => handleTagRemove(tag, field)}
 												>
 													{tag}
-													<X className='w-4 h-4' />
+													<X className="w-4 h-4 ml-2" />
 												</Badge>
 											))}
 										</div>
@@ -191,7 +212,13 @@ const Question = () => {
 						</FormItem>
 					)}
 				/>
-				<Button type='submit'>Submit</Button>
+				<Button type="submit" size="lg" disabled={isSubmitting}>
+					{isSubmitting ? (
+						<>{type === "edit" ? "Editing..." : "Posting..."}</>
+					) : (
+						<>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+					)}
+				</Button>
 			</form>
 		</Form>
 	);
