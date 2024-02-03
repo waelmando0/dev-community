@@ -25,22 +25,22 @@ import { title } from "process";
 
 interface QuestionProps {
 	mongoUserId: string;
-	// type: string;
-	// questionId?: string;
-	// title?: string;
-	// content?: string;
-	// tags?: string[];
+	type: string;
+	questionId?: string;
+	title?: string;
+	content?: string;
+	tags?: string[];
 }
 
 const type: any = "create";
 
 const Question = ({
 	mongoUserId,
-	// type,
-	// questionId,
-	// title,
-	// content,
-	// tags,
+	type,
+	questionId,
+	title,
+	content,
+	tags,
 }: QuestionProps) => {
 	const editorRef = useRef(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,6 +64,7 @@ const Question = ({
 				content: values.explanation,
 				tags: values.tags,
 				author: JSON.parse(mongoUserId),
+				path: pathname,
 			});
 
 			// navigate to home page

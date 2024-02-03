@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import React from 'react';
-import { Badge } from '../ui/badge';
+import Link from "next/link";
+import React from "react";
+import { Badge } from "../ui/badge";
 
 interface RenderTagProps {
 	id: number;
@@ -11,11 +11,11 @@ interface RenderTagProps {
 
 const RenderTag = ({ id, name, totalQuestions, showCount }: RenderTagProps) => {
 	return (
-		<Link href={`/tags/${id}`} className='flex justify-between gap-2'>
-			<Badge variant='secondary' className='rounded-md py-0.5'>
+		<Link href={`/tags/${id}`} className="flex justify-between gap-2">
+			<Badge variant="secondary" className="rounded-md py-1 px-4">
 				{name}
 			</Badge>
-			{showCount && <p className='text-sm'>{totalQuestions}</p>}
+			{showCount && <p className="text-sm">{totalQuestions}</p>}
 		</Link>
 	);
 };
