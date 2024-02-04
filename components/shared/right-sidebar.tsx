@@ -81,13 +81,13 @@ const RightSidebar = () => {
 				<h3 className="text-xl font-bold">Popular Tags</h3>
 				<div className="flex flex-col gap-4 mt-7">
 					{popularTags.map((tag) => (
-						<RenderTag
-							key={tag._id}
-							id={tag._id}
-							name={tag.name}
-							totalQuestions={tag.totalQuestions}
-							showCount
-						/>
+						// <RenderTag
+						// 	key={tag._id}
+						// 	_id={tag._id}
+						// 	name={tag.name}
+						// 	totalQuestions={tag.totalQuestions}
+						// 	showCount
+						// />
 					))}
 				</div>
 			</div>
