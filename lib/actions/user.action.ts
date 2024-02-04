@@ -1,7 +1,7 @@
 "use server";
 
 import User from "@/database/user.model";
-import { connectToDatabase } from "../mongoose";
+import { connectToDatabase, connectToDatabase } from "../mongoose";
 import {
 	CreateUserParams,
 	DeleteUserParams,
@@ -28,55 +28,51 @@ export async function getUserById(params: any) {
 export const createUser = async (userData: CreateUserParams) => {
 	try {
 		connectToDatabase();
-
-		const newUser = await User.create(userData);
-
+		const newUser = User.create(userData);
+		console.log(newUser);
 		return newUser;
-	} catch (error) {}
+	} catch (err) {
+		console.log(err);
+	}
 };
 
-export const updateUser = async (params: UpdateUserParams) => {
+export const updateUser = async (userData: UpdateUserParams) => {
 	try {
 		connectToDatabase();
 
-		const { clerkId, updateData, path } = params;
-
-		await User.findOneAndUpdate({ clerkId }, updateData, {
+		const { clerkId, updateData, path } = userData;
+		const existingUser = await User.findOneAndUpdate({ clerkId }, updateData, {
 			new: true,
 		});
-
 		revalidatePath(path);
-	} catch (error) {}
+		return existingUser;
+	} catch (err) {
+		console.log(err);
+	}
 };
 
-export const deleteUser = async (params: DeleteUserParams) => {
+export const deleteUser = async (userData: DeleteUserParams) => {
 	try {
 		connectToDatabase();
 
-		const { clerkId } = params;
+		const { clerkId } = userData;
 
 		const user = await User.findOneAndDelete({ clerkId });
 
 		if (!user) {
-			throw new Error("User not found");
+			throw new Error("No User Exist");
 		}
 
-		return;
-		// delete user from database
-		// and questions, answers, comments, etc.
+		// const userQuestionIds = await Question.find({
+		// 	author: user._id,
+		// }).distinct("_id");
 
-		// get user question ids
-		const userQuestionIds = await Question.find({
-			author: user._id,
-		}).distinct("_id");
-
-		// delete user question
 		await Question.deleteMany({ author: user._id });
 
 		// TODO: deleted user answers, comments, etc
 
-		const deletedUser = await User.findByIdAndDelete(user._id);
-
-		return deletedUser;
-	} catch (error) {}
+		return user;
+	} catch (error) {
+		console.log(error);
+	}
 };
