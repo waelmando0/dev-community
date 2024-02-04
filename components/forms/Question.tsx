@@ -21,7 +21,6 @@ import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
 import { createQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
-import { title } from "process";
 
 interface QuestionProps {
 	mongoUserId: string;
@@ -34,14 +33,7 @@ interface QuestionProps {
 
 const type: any = "create";
 
-const Question = ({
-	mongoUserId,
-	type,
-	questionId,
-	title,
-	content,
-	tags,
-}: QuestionProps) => {
+const Question = ({ mongoUserId, type, questionId }: QuestionProps) => {
 	const editorRef = useRef(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const router = useRouter();
