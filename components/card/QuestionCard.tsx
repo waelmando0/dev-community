@@ -6,7 +6,6 @@ import Metric from "../shared/mertic";
 import { ThumbsUp, MessageCircle, Eye } from "lucide-react";
 import Image from "next/image";
 import { convertNumber } from "@/lib/utils";
-import { name } from "assert";
 
 interface QuestionCardTypeProps {
 	_id: string;
@@ -51,7 +50,7 @@ const QuestionCard = ({
 			<div className="mt-3.5 flex flex-wrap gap-2">
 				{tags.length > 0
 					? tags.map((tag) => (
-							<RenderTag key={tag._id} id={tag._id} name={tag.name} />
+							<RenderTag key={tag._id} _id={tag._id} name={tag.name} />
 						))
 					: ""}
 			</div>
@@ -59,7 +58,7 @@ const QuestionCard = ({
 				<div>
 					<Image
 						src={author.picture}
-						alt={name}
+						alt={author.name}
 						width={16}
 						height={16}
 						className="object-contain"
