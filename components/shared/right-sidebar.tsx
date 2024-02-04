@@ -30,27 +30,27 @@ const RightSidebar = () => {
 
 	const popularTags = [
 		{
-			_id: 1,
+			_id: "1",
 			name: "Javascript",
 			totalQuestions: 4,
 		},
 		{
-			_id: 2,
+			_id: "2",
 			name: "React",
 			totalQuestions: 6,
 		},
 		{
-			_id: 3,
+			_id: "3",
 			name: "Next",
 			totalQuestions: 3,
 		},
 		{
-			_id: 4,
+			_id: "4",
 			name: "Node",
 			totalQuestions: 2,
 		},
 		{
-			_id: 5,
+			_id: "5",
 			name: "Redux",
 			totalQuestions: 4,
 		},
@@ -81,13 +81,7 @@ const RightSidebar = () => {
 				<h3 className="text-xl font-bold">Popular Tags</h3>
 				<div className="flex flex-col gap-4 mt-7">
 					{popularTags.map((tag) => (
-						// <RenderTag
-						// 	key={tag._id}
-						// 	_id={tag._id}
-						// 	name={tag.name}
-						// 	totalQuestions={tag.totalQuestions}
-						// 	showCount
-						// />
+						<RenderTag key={tag._id} _id={tag._id} name={tag.name} showCount />
 					))}
 				</div>
 			</div>
