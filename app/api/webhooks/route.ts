@@ -4,10 +4,11 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { createUser, updateUser, deleteUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
+import process from "process";
 
 export async function POST(req: Request) {
 	// Need to move this to env
-	const WEBHOOK_SECRET = "whsec_QsLuGObot7z6M9LMtLwxeJGLtscIbke2";
+	const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
 
 	if (!WEBHOOK_SECRET) {
 		throw new Error(
