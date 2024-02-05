@@ -33,3 +33,7 @@ export interface UpdateUserParams {
 export interface DeleteUserParams {
 	clerkId: string;
 }
+
+export interface GetUserByIdParams {
+	userId: string;
+}

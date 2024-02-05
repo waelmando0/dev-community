@@ -6,11 +6,12 @@ import {
 	CreateUserParams,
 	DeleteUserParams,
 	UpdateUserParams,
+	GetUserByIdParams,
 } from "./shared.types";
 import { revalidatePath } from "next/cache";
 import Question from "@/database/question.model";
 
-export async function getUserById(params: any) {
+export async function getUserById(params) {
 	try {
 		connectToDatabase();
 
@@ -45,6 +46,7 @@ export const updateUser = async (userData: UpdateUserParams) => {
 			new: true,
 		});
 		revalidatePath(path);
+
 		return existingUser;
 	} catch (err) {
 		console.log(err);
