@@ -1,11 +1,11 @@
 "use server";
 
 import Question from "@/database/question.model";
-import { GetQuestionsParams, CreateQuestionParams } from "./shared.types";
 import User from "@/database/user.model";
 import Tag from "@/database/tag.model";
+
+import { GetQuestionsParams, CreateQuestionParams } from "./shared.types";
 import { connectToDatabase } from "../mongoose";
-import { revalidatePath } from "next/cache";
 
 export async function getQuestions(params: GetQuestionsParams) {
 	try {
@@ -23,7 +23,7 @@ export async function getQuestions(params: GetQuestionsParams) {
 	}
 }
 
-export async function createQuestion(params: CreateQuestionParams) {
+export async function createQuestion(params: any) {
 	try {
 		connectToDatabase();
 
@@ -39,26 +39,16 @@ export async function createQuestion(params: CreateQuestionParams) {
 		for (const tag of tags) {
 			const existingTag = await Tag.findOneAndUpdate(
 				{ name: { $regex: new RegExp(`^${tag}$`, "i") } },
-				{
-					$setOnInsert: { name: tag },
-					$push: {
-						questions: question._id,
-					},
-				},
+				{ $setOnInsert: { name: tag }, $push: { questions: question._id } },
 				{ upsert: true, new: true }
 			);
+
 			tagDocuments.push(existingTag._id);
 		}
 
 		await Question.findByIdAndUpdate(question._id, {
-			$push: {
-				tags: {
-					$each: tagDocuments,
-				},
-			},
+			$push: { tags: { $each: tagDocuments } },
 		});
-
-		revalidatePath(path);
 	} catch (err) {
 		console.log(err);
 		throw err;

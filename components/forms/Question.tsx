@@ -20,20 +20,15 @@ import { QuestionsSchema } from "@/lib/validation";
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
 import { createQuestion } from "@/lib/actions/question.action";
-import { useRouter, usePathname } from "next/navigation";
-
-interface QuestionProps {
-	mongoUserId: string;
-	type: string;
-	questionId?: string;
-	title?: string;
-	content?: string;
-	tags?: string[];
-}
+import { usePathname, useRouter } from "next/navigation";
 
 const type: any = "create";
 
-const Question = ({ mongoUserId, type, questionId }: QuestionProps) => {
+interface Props {
+	mongoUserId: string;
+}
+
+const Question = ({ mongoUserId }: Props) => {
 	const editorRef = useRef(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const router = useRouter();
@@ -56,7 +51,6 @@ const Question = ({ mongoUserId, type, questionId }: QuestionProps) => {
 				content: values.explanation,
 				tags: values.tags,
 				author: JSON.parse(mongoUserId),
-				path: pathname,
 			});
 
 			// navigate to home page
