@@ -3,7 +3,7 @@ import { getUserById } from "@/lib/actions/user.action";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const Page = async () => {
+const AskQuestion = async () => {
 	// const { userId } = auth();
 
 	const userId = "exampleClerkId";
@@ -23,4 +23,4 @@ const Page = async () => {
 	);
 };
 
-export default Page;
+export default AskQuestion;

@@ -26,55 +26,55 @@ export async function getUserById(params: any) {
 	}
 }
 
-export const createUser = async (userData: CreateUserParams) => {
-	try {
-		connectToDatabase();
-		const newUser = User.create(userData);
-		console.log(newUser);
-		return newUser;
-	} catch (err) {
-		console.log(err);
-	}
-};
+// export const createUser = async (userData: CreateUserParams) => {
+// 	try {
+// 		connectToDatabase();
+// 		const newUser = User.create(userData);
+// 		console.log(newUser);
+// 		return newUser;
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// };
 
-export const updateUser = async (userData: UpdateUserParams) => {
-	try {
-		connectToDatabase();
+// export const updateUser = async (userData: UpdateUserParams) => {
+// 	try {
+// 		connectToDatabase();
 
-		const { clerkId, updateData, path } = userData;
-		const existingUser = await User.findOneAndUpdate({ clerkId }, updateData, {
-			new: true,
-		});
-		revalidatePath(path);
+// 		const { clerkId, updateData, path } = userData;
+// 		const existingUser = await User.findOneAndUpdate({ clerkId }, updateData, {
+// 			new: true,
+// 		});
+// 		revalidatePath(path);
 
-		return existingUser;
-	} catch (err) {
-		console.log(err);
-	}
-};
+// 		return existingUser;
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// };
 
-export const deleteUser = async (userData: DeleteUserParams) => {
-	try {
-		connectToDatabase();
+// export const deleteUser = async (userData: DeleteUserParams) => {
+// 	try {
+// 		connectToDatabase();
 
-		const { clerkId } = userData;
+// 		const { clerkId } = userData;
 
-		const user = await User.findOneAndDelete({ clerkId });
+// 		const user = await User.findOneAndDelete({ clerkId });
 
-		if (!user) {
-			throw new Error("No User Exist");
-		}
+// 		if (!user) {
+// 			throw new Error("No User Exist");
+// 		}
 
-		// const userQuestionIds = await Question.find({
-		// 	author: user._id,
-		// }).distinct("_id");
+// 		// const userQuestionIds = await Question.find({
+// 		// 	author: user._id,
+// 		// }).distinct("_id");
 
-		await Question.deleteMany({ author: user._id });
+// 		await Question.deleteMany({ author: user._id });
 
-		// TODO: deleted user answers, comments, etc
+// 		// TODO: deleted user answers, comments, etc
 
-		return user;
-	} catch (error) {
-		console.log(error);
-	}
-};
+// 		return user;
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+// };

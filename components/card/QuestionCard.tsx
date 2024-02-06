@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
-import { auth } from "@clerk/nextjs";
+import { SignedIn, auth } from "@clerk/nextjs";
 import RenderTag from "../shared/render-tag";
 import Metric from "../shared/mertic";
 import { ThumbsUp, MessageCircle, Eye } from "lucide-react";
 import Image from "next/image";
-import { convertNumber } from "@/lib/utils";
+import { convertNumber, getTimestamp } from "@/lib/utils";
 
 interface QuestionCardTypeProps {
 	_id: string;
@@ -55,20 +55,23 @@ const QuestionCard = ({
 					: ""}
 			</div>
 			<div className="md:flex justify-between flex-wrap items-center mt-6 w-full gap-3">
-				<div>
-					<Image
+				<div className="flex items-center space-x-2">
+					{/* <Image
 						src={author.picture}
 						alt={author.name}
 						width={16}
 						height={16}
 						className="object-contain"
-					/>
+					/> */}
 					<Metric
 						title="author"
 						value={author.name}
 						href={`/profile/${author._id}`}
 						isAuthor
 					/>
+					<span className="line-clamp-1 text-sm text-slate-600">
+						{getTimestamp(createdAt)}
+					</span>
 				</div>
 				<div className="flex items-center gap-3 max-sm:flex-wrap max-sm:items-start">
 					<div className="flex items-center gap-1">

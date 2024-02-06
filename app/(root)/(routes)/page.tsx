@@ -10,6 +10,7 @@ import QuestionCard from "@/components/card/QuestionCard";
 
 const Home = async () => {
 	const result = await getQuestions({});
+	console.log(result.questions);
 
 	return (
 		<>
@@ -28,19 +29,25 @@ const Home = async () => {
 			</div>
 			<HomeFilters />
 			<div className="flex flex-col gap-4 mt-8">
-				{result.questions.map((question) => (
-					<QuestionCard
-						key={question._id}
-						_id={question._id}
-						title={question.title}
-						tags={question.tags}
-						author={question.author}
-						upvotes={question.upvotes}
-						views={question.views}
-						answers={question.answers}
-						createdAt={question.createdAt}
-					/>
-				))}
+				{result.questions.length > 0 ? (
+					result.questions.map((question) => (
+						<QuestionCard
+							key={question._id}
+							_id={question._id}
+							title={question.title}
+							tags={question.tags}
+							author={question.author}
+							upvotes={question.upvotes}
+							views={question.views}
+							answers={question.answers}
+							createdAt={question.createdAt}
+						/>
+					))
+				) : (
+					<>
+						<p>there is no result</p>
+					</>
+				)}
 			</div>
 		</>
 	);

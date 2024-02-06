@@ -4,8 +4,9 @@ import Question from "@/database/question.model";
 import User from "@/database/user.model";
 import Tag from "@/database/tag.model";
 
-import { GetQuestionsParams, CreateQuestionParams } from "./shared.types";
+import { CreateQuestionParams, GetQuestionsParams } from "./shared.types";
 import { connectToDatabase } from "../mongoose";
+import { revalidatePath } from "next/cache";
 
 export async function getQuestions(params: GetQuestionsParams) {
 	try {
@@ -23,7 +24,7 @@ export async function getQuestions(params: GetQuestionsParams) {
 	}
 }
 
-export async function createQuestion(params: any) {
+export async function createQuestion(params: CreateQuestionParams) {
 	try {
 		connectToDatabase();
 
@@ -49,6 +50,8 @@ export async function createQuestion(params: any) {
 		await Question.findByIdAndUpdate(question._id, {
 			$push: { tags: { $each: tagDocuments } },
 		});
+
+		revalidatePath(path);
 	} catch (err) {
 		console.log(err);
 		throw err;
