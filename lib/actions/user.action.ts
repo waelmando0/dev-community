@@ -26,38 +26,39 @@ export async function getUserById(params: any) {
 	}
 }
 
-export const createUser = async (userData: CreateUserParams) => {
+export async function createUser(userData: CreateUserParams) {
 	try {
 		connectToDatabase();
+
 		const newUser = User.create(userData);
+
 		console.log(newUser);
 		return newUser;
 	} catch (err) {
 		console.log(err);
 	}
-};
+}
 
-export const updateUser = async (userData: UpdateUserParams) => {
+export async function updateUser(params: UpdateUserParams) {
 	try {
 		connectToDatabase();
 
-		const { clerkId, updateData, path } = userData;
-		const existingUser = await User.findOneAndUpdate({ clerkId }, updateData, {
+		const { clerkId, updateData, path } = params;
+		await User.findOneAndUpdate({ clerkId }, updateData, {
 			new: true,
 		});
-		revalidatePath(path);
 
-		return existingUser;
+		revalidatePath(path);
 	} catch (err) {
 		console.log(err);
 	}
-};
+}
 
-export const deleteUser = async (userData: DeleteUserParams) => {
+export async function deleteUser(params: DeleteUserParams) {
 	try {
 		connectToDatabase();
 
-		const { clerkId } = userData;
+		const { clerkId } = params;
 
 		const user = await User.findOneAndDelete({ clerkId });
 
@@ -65,16 +66,16 @@ export const deleteUser = async (userData: DeleteUserParams) => {
 			throw new Error("No User Exist");
 		}
 
-		// const userQuestionIds = await Question.find({
-		// 	author: user._id,
-		// }).distinct("_id");
+		const userQuestionIds = await Question.find({ author: user._id }).distinct(
+			"_id"
+		);
 
 		await Question.deleteMany({ author: user._id });
 
-		// TODO: deleted user answers, comments, etc
+		const deleteUser = await User.findByIdAndDelete(user._id);
 
-		return user;
+		return deleteUser;
 	} catch (error) {
 		console.log(error);
 	}
-};
+}

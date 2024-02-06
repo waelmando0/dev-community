@@ -51,7 +51,6 @@ export async function POST(req: Request) {
 		});
 	}
 
-	// Get the ID and type
 	const eventType = evt.type;
 
 	if (eventType === "user.created") {
@@ -67,6 +66,7 @@ export async function POST(req: Request) {
 		});
 		return NextResponse.json({ message: "Ok", user: mongoUser });
 	}
+
 	if (eventType === "user.updated") {
 		const { id, email_addresses, image_url, username, first_name, last_name } =
 			evt.data;
@@ -87,10 +87,11 @@ export async function POST(req: Request) {
 	if (eventType === "user.deleted") {
 		const { id } = evt.data;
 
-		const mongoUser = await deleteUser({
+		const deletedUser = await deleteUser({
 			clerkId: id!,
 		});
-		return NextResponse.json({ message: "Deleted", user: mongoUser });
+
+		return NextResponse.json({ message: "Ok", user: deleteUser });
 	}
 
 	return new NextResponse("", { status: 200 });
