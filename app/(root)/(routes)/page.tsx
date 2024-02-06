@@ -7,6 +7,7 @@ import Link from "next/link";
 import React from "react";
 import { getQuestions } from "@/lib/actions/question.action";
 import QuestionCard from "@/components/card/QuestionCard";
+import NoResult from "@/components/shared/no-result";
 
 const Home = async () => {
 	const result = await getQuestions({});
@@ -45,7 +46,14 @@ const Home = async () => {
 					))
 				) : (
 					<>
-						<p>there is no result</p>
+						<NoResult
+							title="There is no question to show"
+							description="Be the first one to break the silence!. As a Question and kickstart the
+						discussion. Your query could be the next big thing others learn from.
+						Get Involved!"
+							btnTitle="Ask a Question"
+							route="/"
+						/>
 					</>
 				)}
 			</div>
